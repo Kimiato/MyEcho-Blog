@@ -1,0 +1,21 @@
+from .base import *
+
+
+# 数据库设置
+DATABASE_DEFAULT_NAME = 'myecho'
+DATABASE_DEFAULT_USER = 'root'
+DATABASE_DEFAULT_PASSWORD = '123456'
+DATABASE_DEFAULT_HOST = 'localhost'
+DATABASE_DEFAULT_PORT = '3306'
+
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': DATABASE_DEFAULT_NAME,
+        'USER': DATABASE_DEFAULT_USER,
+        'PASSWORD': DATABASE_DEFAULT_PASSWORD,
+        'HOST': DATABASE_DEFAULT_HOST,
+        'PORT':DATABASE_DEFAULT_PORT,
+    }
+}
