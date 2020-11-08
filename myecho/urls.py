@@ -37,7 +37,10 @@ schema_view = get_schema_view(
 
 
 urlpatterns = [
-    url(r'^api/sso/', include('sso.urls'))
+    url(r'^api/sso/', include('sso.urls')),
+    url(r'^api/myecho_article/', include('myecho_article.urls')),
+    url(r'^api/myecho_comment/', include('myecho_comment.urls')),
+    url(r'^api/myecho_like/', include('myecho_like.urls')),
 ]
 
 

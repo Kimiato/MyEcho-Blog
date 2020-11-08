@@ -1,5 +1,6 @@
 from .article import (
-    Article
+    Article,
+    ArticleDetail
 )
 from .classfication import (
     Classification

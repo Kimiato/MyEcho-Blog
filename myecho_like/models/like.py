@@ -13,7 +13,7 @@ class Like(BaseModel):
         abstract = True
 
     id = models.AutoField('id', primary_key=True, editable=False, help_text='主键')
-    like_from_ip = models.IPAddressField(verbose_name='点赞ip')
+    like_from_ip = models.GenericIPAddressField(verbose_name='点赞ip')
     is_positive = models.BooleanField(verbose_name='点赞/踩', default=True)
 
 

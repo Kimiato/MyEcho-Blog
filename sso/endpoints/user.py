@@ -15,6 +15,7 @@ from sso.models import User
 from sso.serializers import UserSerializer
 from myecho.utils.rest_exceptions import WrongOldPassword
 
+
 class UserViewSet(BaseGenericViewSet,
                 BaseCreateModelMixin,
                 BaseListModelMixin,

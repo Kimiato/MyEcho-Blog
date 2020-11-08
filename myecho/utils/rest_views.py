@@ -29,7 +29,12 @@ class BaseUpdateModelMixin(mixins.UpdateModelMixin):
     pass
 
 
-class BaseModelViewSet(BaseGenericViewSet):
+class BaseModelViewSet(BaseCreateModelMixin,
+                       BaseRetrieveModelMixin,
+                       BaseUpdateModelMixin,
+                       BaseDestroyModelMixin,
+                       BaseListModelMixin,
+                       BaseGenericViewSet,):
     pass
 
 

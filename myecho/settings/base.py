@@ -41,6 +41,8 @@ INSTALLED_APPS = [
     'drf_yasg',
     'sso.apps.SsoConfig',
     'myecho_article.apps.MyechoArticleConfig',
+    'myecho_comment.apps.MyechoCommentConfig',
+    'myecho_like.apps.MyechoLikeConfig'
 ]
 
 MIDDLEWARE = [
