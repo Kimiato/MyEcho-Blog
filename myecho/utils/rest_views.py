@@ -3,20 +3,10 @@ from rest_framework import viewsets
 from rest_framework import mixins
 
 
-class BaseModelViewSet(viewsets.ModelViewSet):
-    pass
-
-
-class BaseReadOnlyModelViewSet(viewsets.ReadOnlyModelViewSet):
-    pass
-
-
-class BaseApiView(APIView):
-    pass
-
-
 class BaseGenericViewSet(viewsets.GenericViewSet):
-    pass
+
+    def perform_authentication(self, request):
+        super(BaseGenericViewSet, self).perform_authentication(request)
 
 
 class BaseCreateModelMixin(mixins.CreateModelMixin):
@@ -36,4 +26,16 @@ class BaseRetrieveModelMixin(mixins.RetrieveModelMixin):
 
 
 class BaseUpdateModelMixin(mixins.UpdateModelMixin):
+    pass
+
+
+class BaseModelViewSet(BaseGenericViewSet):
+    pass
+
+
+class BaseReadOnlyModelViewSet(BaseRetrieveModelMixin, BaseListModelMixin, BaseGenericViewSet):
+    pass
+
+
+class BaseApiView(APIView):
     pass

@@ -22,7 +22,9 @@ def action_authentication(*authentications, validate_authentication=True):
         def wrapper(self, request, *args, **kwargs):
             self.authentication_classes = authentications
             if validate_authentication:
-                self.check_authentication(request)
+                authenticators = self.get_authenticators()
+                for authenticator in authenticators:
+                    authenticator.authenticate(request)
             return func(self, request, *args, **kwargs)
         return update_wrapper(wrapper, func)
     return decorator
@@ -52,9 +54,3 @@ class BaseTokenAuthentication(TokenAuthentication):
     def authenticate_credentials(self, key):
         user, token = self._get_user_by_token_key(key)
         return (user, token)
-
-    def has_permission(self, request, view):
-        self.authenticate(request)
-        if request.user.is_authenticated:
-            return True
-        return False

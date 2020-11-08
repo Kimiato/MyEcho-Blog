@@ -13,7 +13,7 @@ from myecho.utils.rest_views import (
 from myecho.controllers import BaseTokenAuthentication, action_permission, action_authentication, IsAdmin
 from sso.models import User
 from sso.serializers import UserSerializer
-
+from myecho.utils.rest_exceptions import WrongOldPassword
 
 class UserViewSet(BaseGenericViewSet,
                 BaseCreateModelMixin,
@@ -65,8 +65,8 @@ class UserViewSet(BaseGenericViewSet,
         return Response(serializer.data, status=status.HTTP_201_CREATED, headers=headers)
 
     @action_authentication(BaseTokenAuthentication)
-    @action(methods=['post'], detail=True)
-    def rest_password(self, request, pk):
+    @action(methods=['post'], detail=False)
+    def rest_password(self, request):
         """
             # 重置密码
             request data: {
@@ -74,5 +74,11 @@ class UserViewSet(BaseGenericViewSet,
                 "old_password": str, # 旧密码
             }
         """
-        user = get_object_or_404(self.get_queryset(), pk=self.kwargs['pk'])
-        return Response('123')
+        user = self.request.user
+        password = request.data.get('password')
+        old_password = request.data.get('old_password')
+        if not user.check_password(old_password):
+            raise WrongOldPassword()
+        user.set_password(password)
+        user.save()
+        return Response({"detail": "密码修改成功"}, status=status.HTTP_200_OK)

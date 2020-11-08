@@ -9,3 +9,6 @@ from .rest_views import (
     BaseRetrieveModelMixin,
     BaseUpdateModelMixin
 )
+from .rest_exceptions import (
+    WrongOldPassword
+)
