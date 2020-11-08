@@ -8,7 +8,7 @@ from sso.endpoints import (
 
 router = routers.SimpleRouter()
 
-router.register(r'user', UserViewSet)
+router.register(r'users', UserViewSet)
 
 urlpatterns = [
     url(r'^', include(router.urls)),

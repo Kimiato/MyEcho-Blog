@@ -3,32 +3,56 @@ from rest_framework.decorators import action
 from django.shortcuts import get_object_or_404
 from rest_framework.response import Response
 
-from myecho.utils.rest_views import BaseModelViewSet
+from myecho.utils.rest_views import (
+    BaseGenericViewSet,
+    BaseCreateModelMixin,
+    BaseDestroyModelMixin,
+    BaseRetrieveModelMixin,
+    BaseListModelMixin
+)
+from myecho.controllers import BaseTokenAuthentication, action_permission, action_authentication, IsAdmin
 from sso.models import User
 from sso.serializers import UserSerializer
 
 
-class UserViewSet(BaseModelViewSet):
+class UserViewSet(BaseGenericViewSet,
+                BaseCreateModelMixin,
+                BaseListModelMixin,
+                BaseDestroyModelMixin,
+                BaseRetrieveModelMixin):
 
+    authentication_classes = []
     permission_classes = []
-    queryset = User.objects.all().order_by('id')
+    queryset = User.objects.order_by('id')
     serializer_class = UserSerializer
 
-    @action(methods=['post'], detail=True)
-    def rest_password(self, request, pk):
+    @action_authentication(BaseTokenAuthentication)
+    @action_permission(IsAdmin)
+    def destroy(self, request, *args, **kwargs):
         """
-            重置密码
-            request data: {
-                "password": str,
-                "old_password": str, # 旧密码
-            }
+            # 删除账号
         """
-        user = get_object_or_404(self.get_queryset(), pk=self.kwargs['pk'])
-        pass
+        return super(UserViewSet, self).destroy(request, *args, **kwargs)
+
+    @action_authentication(BaseTokenAuthentication)
+    @action_permission(IsAdmin)
+    def list(self, request, *args, **kwargs):
+        """
+            # 已注册账号列表
+        """
+        return super(UserViewSet, self).list(request, *args, **kwargs)
+
+    @action_authentication(BaseTokenAuthentication)
+    @action_permission(IsAdmin)
+    def retrieve(self, request, *args, **kwargs):
+        """
+            # 账号详情
+        """
+        return super(UserViewSet, self).list(request, *args, **kwargs)
 
     def create(self, request, *args, **kwargs):
         """
-            注册账号
+            # 注册账号
         """
         raw_password = request.data.get('password')
         serializer = self.get_serializer(data=request.data)
@@ -39,3 +63,16 @@ class UserViewSet(BaseModelViewSet):
         instance.set_password(raw_password)
         instance.save()
         return Response(serializer.data, status=status.HTTP_201_CREATED, headers=headers)
+
+    @action_authentication(BaseTokenAuthentication)
+    @action(methods=['post'], detail=True)
+    def rest_password(self, request, pk):
+        """
+            # 重置密码
+            request data: {
+                "password": str,
+                "old_password": str, # 旧密码
+            }
+        """
+        user = get_object_or_404(self.get_queryset(), pk=self.kwargs['pk'])
+        return Response('123')

@@ -12,12 +12,17 @@ class User(BaseModel):
     class Meta:
         db_table = 'sso_user'
 
+    class PermissionType(models.IntegerChoices):
+        ADMIN = 0, '管理员'
+        NORMAL = 1, '普通用户'
+
     username_validator = [UnicodeUsernameValidator()]
 
     id = models.AutoField('id', primary_key=True, editable=False, help_text='主键')
     username = models.CharField(_('username'), max_length=150, unique=True, validators=username_validator)
     email = models.EmailField(_('email address'), blank=True)
     password = models.CharField(_('password'), max_length=128)
+    permission_type = models.SmallIntegerField(_('permission_type'), choices=PermissionType.choices, default=1)
     last_login = models.DateTimeField(_('last login'), blank=True, null=True)
 
     def __str__(self) -> str:
