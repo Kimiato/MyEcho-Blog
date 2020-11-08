@@ -13,7 +13,7 @@ class Article(BaseModel):
 
     id = models.AutoField('id', primary_key=True, editable=False, help_text='主键')
     title = models.CharField(verbose_name='标题', help_text='文章标题', max_length=64)
-    user = models.OneToOneField(User, verbose_name='作者', related_name='user', on_delete=models.CASCADE, editable=False)
+    user = models.ForeignKey(User, verbose_name='作者', related_name='user', on_delete=models.CASCADE, editable=False)
     summary = models.CharField(verbose_name='摘要', help_text='文章摘要', max_length=255, null=True)
     read_count = models.IntegerField(verbose_name='浏览量', default=0, editable=False)
     like_count = models.IntegerField(verbose_name='点赞数', help_text='点赞数', default=0, editable=False)

@@ -22,10 +22,9 @@ class ArticleSerializer(BaseModelSerializer):
     def create(self, validated_data):
         article_detail = validated_data.pop('article_detail')
         instance = super(ArticleSerializer, self).create(validated_data)
-        article_detail['article'] = instance
-        article_detail_serializer = ArticleDetailSerializer(data=article_detail)
-        article_detail_serializer.is_valid(raise_exception=True)
-        article_detail_serializer.save()
+        article_detail['article_id'] = instance.id
+        article_detail_instance = ArticleDetail(**article_detail)
+        article_detail_instance.save()
         return instance
 
     def update(self, instance, validated_data):

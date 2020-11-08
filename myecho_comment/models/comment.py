@@ -13,7 +13,7 @@ class Comment(BaseModel):
         db_table = 'myecho_comment'
 
     id = models.AutoField('id', primary_key=True, editable=False, help_text='主键')
-    user = models.OneToOneField(User, verbose_name='评论人', on_delete=models.SET_NULL, null=True)
+    user = models.ForeignKey(User, verbose_name='评论人', on_delete=models.SET_NULL, null=True)
     user_name = models.CharField(verbose_name='评论人姓名', max_length=50, default='null')
     user_ip = models.GenericIPAddressField(verbose_name='评论人ip')
     user_site = models.CharField(verbose_name='评论人网站', max_length=128, null=True)
