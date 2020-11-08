@@ -35,5 +35,5 @@ class ArticleDetail(BaseModel):
         db_table = 'myecho_article_detail'
 
     id = models.AutoField('id', primary_key=True, editable=False, help_text='主键')
-    article = models.OneToOneField(Article, verbose_name='文章', on_delete=models.CASCADE)
+    article = models.OneToOneField(Article, verbose_name='文章', on_delete=models.CASCADE, editable=False)
     content = models.TextField(verbose_name='文章内容', null=True)

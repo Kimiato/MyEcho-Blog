@@ -1,4 +1,4 @@
-from myecho.serializer import BaseModelSerializer
+from myecho.serializers import BaseModelSerializer
 from sso.models import Token
 
 
