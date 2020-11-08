@@ -26,6 +26,9 @@ class ArticleViewSet(BaseModelViewSet):
         """
             # 文章详情
         """
+        instance = self.get_object()
+        read_count = instance.read_count + 1
+        instance.update(read_count=read_count)
         return super(ArticleViewSet, self).retrieve(request, *args, **kwargs)
 
     @action_authentication(BaseTokenAuthentication)

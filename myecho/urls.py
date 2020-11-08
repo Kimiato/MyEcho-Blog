@@ -33,6 +33,7 @@ schema_view = get_schema_view(
    ),
    validators=[],
    public=True,
+   authentication_classes=[],
 )
 
 
