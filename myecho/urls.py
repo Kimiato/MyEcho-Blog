@@ -31,7 +31,7 @@ schema_view = get_schema_view(
       contact=openapi.Contact(email="contact@snippets.local"),
       license=openapi.License(name="BSD License"),
    ),
-   validators=['flex',],
+   validators=[],
    public=True,
 )
 
