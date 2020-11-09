@@ -21,3 +21,13 @@ class IsAdmin(BasePermission):
         if request.user.permission_type == 0:
             return True
         return False
+
+
+class IsAuthor(BasePermission):
+    """
+        删除或者更新的权限
+    """
+    def has_object_permission(self, request, view, obj):
+        if request.user.permission_type == 0 or obj.user == request.user:
+            return True
+        return False

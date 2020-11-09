@@ -2,7 +2,7 @@ from rest_framework.response import Response
 
 from myecho.utils.rest_views import BaseModelViewSet
 from myecho.controllers.authentication import action_authentication, BaseTokenAuthentication
-from myecho.controllers.permissions import action_permission, IsAdmin
+from myecho.controllers.permissions import action_permission, IsAuthor
 from myecho_article.models import Article, ArticleDetail
 from myecho_article.serializers import ArticleSerializer, ArticleDetailSerializer
 
@@ -32,7 +32,7 @@ class ArticleViewSet(BaseModelViewSet):
         return super(ArticleViewSet, self).retrieve(request, *args, **kwargs)
 
     @action_authentication(BaseTokenAuthentication)
-    @action_permission(IsAdmin)
+    @action_permission(IsAuthor)
     def destroy(self, request, *args, **kwargs):
         """
             # 删除文章
@@ -47,6 +47,7 @@ class ArticleViewSet(BaseModelViewSet):
         return super(ArticleViewSet, self).create(request, *args, **kwargs)
 
     @action_authentication(BaseTokenAuthentication)
+    @action_permission(IsAuthor)
     def update(self, request, *args, **kwargs):
         """
             更新文章
