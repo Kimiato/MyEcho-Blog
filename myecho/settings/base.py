@@ -100,13 +100,21 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+# RESTFRAME WORK
+REST_FRAMEWORK = {
+    'DEFAULT_RENDERER_CLASSES': (  # 默认响应渲染类
+        'rest_framework.renderers.JSONRenderer',  # json渲染器
+        # 'rest_framework.renderers.BrowsableAPIRenderer',  # 浏览API渲染器
+    )
+}
+
 
 # Internationalization
 # https://docs.djangoproject.com/en/3.1/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'zh-hans'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Asia/Shanghai'
 
 USE_I18N = True
 
