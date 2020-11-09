@@ -21,6 +21,7 @@ class ArticleSerializer(BaseModelSerializer):
 
     def create(self, validated_data):
         article_detail = validated_data.pop('article_detail')
+        validated_data['summary'] = f"{article_detail['content'][:251]}..."
         instance = super(ArticleSerializer, self).create(validated_data)
         article_detail['article_id'] = instance.id
         article_detail_instance = ArticleDetail(**article_detail)
@@ -29,6 +30,7 @@ class ArticleSerializer(BaseModelSerializer):
 
     def update(self, instance, validated_data):
         article_detail = validated_data.get('article_detail')
+        validated_data['summary'] = f"{article_detail['content'][:251]}..."
         article_detail_instance = ArticleDetail.objects.get(article=instance)
         article_detail_serializer = ArticleDetailSerializer(data=article_detail)
         article_detail_serializer.is_valid()
