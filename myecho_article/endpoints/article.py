@@ -4,7 +4,10 @@ from myecho.utils.rest_views import BaseModelViewSet
 from myecho.controllers.authentication import action_authentication, BaseTokenAuthentication
 from myecho.controllers.permissions import action_permission, IsAuthor
 from myecho_article.models import Article, ArticleDetail
-from myecho_article.serializers import ArticleSerializer, ArticleDetailSerializer
+from myecho_article.serializers import (
+    ArticleSerializer,
+    ArticleListSerializer,
+)
 
 
 class ArticleViewSet(BaseModelViewSet):
@@ -20,6 +23,7 @@ class ArticleViewSet(BaseModelViewSet):
         """
             # 文章列表
         """
+        self.serializer_class = ArticleListSerializer
         return super(ArticleViewSet, self).list(request, *args, **kwargs)
 
     def retrieve(self, request, *args, **kwargs):
@@ -28,7 +32,7 @@ class ArticleViewSet(BaseModelViewSet):
         """
         instance = self.get_object()
         read_count = instance.read_count + 1
-        instance.update(read_count=read_count)
+        Article.objects.filter(id=instance.id).update(read_count=read_count)
         return super(ArticleViewSet, self).retrieve(request, *args, **kwargs)
 
     @action_authentication(BaseTokenAuthentication)

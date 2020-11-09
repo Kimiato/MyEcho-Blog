@@ -1,4 +1,4 @@
-from myecho.serializers import BaseModelSerializer
+from myecho.utils.rest_serializers import BaseModelSerializer
 from myecho_article.models import Article, ArticleDetail
 
 

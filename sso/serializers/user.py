@@ -1,5 +1,5 @@
 from sso.models import User
-from myecho.serializers import BaseModelSerializer
+from myecho.utils.rest_serializers import BaseModelSerializer
 
 
 class UserSerializer(BaseModelSerializer):

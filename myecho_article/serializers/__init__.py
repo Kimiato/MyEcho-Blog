@@ -1,4 +1,5 @@
 from .article import (
     ArticleSerializer,
-    ArticleDetailSerializer
+    ArticleDetailSerializer,
+    ArticleListSerializer
 )

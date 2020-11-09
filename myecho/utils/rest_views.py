@@ -2,8 +2,11 @@ from rest_framework.views import APIView
 from rest_framework import viewsets
 from rest_framework import mixins
 
+from .paginations import BasePageNumberPagination
 
 class BaseGenericViewSet(viewsets.GenericViewSet):
+
+    pagination_class = BasePageNumberPagination
 
     def perform_authentication(self, request):
         super(BaseGenericViewSet, self).perform_authentication(request)
