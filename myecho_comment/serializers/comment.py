@@ -8,5 +8,7 @@ class CommentSerializer(BaseModelSerializer):
     """
         评论serializer
     """
+
     class Meta(BaseModelSerializer.Meta):
         model = Comment
+        exclude = BaseModelSerializer.Meta.exclude + ['user_ip', 'user']
