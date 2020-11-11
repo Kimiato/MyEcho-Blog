@@ -8,7 +8,7 @@ from myecho.utils.rest_views import (
     BaseDestroyModelMixin,
     BaseCreateModelMixin
 )
-from myecho.utils.toolfuns import _get_client_ip
+from myecho.utils.toolfuns import get_client_ip
 from myecho.controllers.authentication import (
     BaseTokenAuthentication,
     action_authentication
@@ -45,12 +45,12 @@ class CommentViewSet(BaseListModelMixin, BaseCreateModelMixin, BaseDestroyModelM
         if self.request.user.is_authenticated:
             data.update({
                 'user':self.request.user,
-                'user_ip': _get_client_ip(self.request),
+                'user_ip': get_client_ip(self.request),
                 'user_name': self.request.user.username,
                 'user_email': self.request.user.email
             })
         else:
-            data.update(user_ip=_get_client_ip(self.request))
+            data.update(user_ip=get_client_ip(self.request))
         super(CommentViewSet, self).perform_create(serializer)
 
 

@@ -1,4 +1,4 @@
-def _get_client_ip(request):
+def get_client_ip(request):
     x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
     # 代理服务器
     if x_forwarded_for:
